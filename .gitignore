@@ -1,5 +1,18 @@
-# Byte-compiled / optimized / DLL files
 __pycache__/
+*.py[cod]
+.venv/
+.env
+.ipynb_checkpoints/
+data/raw/*.csv
+data/processed/*.csv
+models/*.joblib
+models/*.pkl
+models/*.json
+reports/figures/*.png
+reports/figures/*.csv
+*.egg-info/
+.pytest_cache/
+# Byte-compiled / optimized DLL files
 *.py[codz]
 *$py.class
 
