@@ -1,5 +1,7 @@
 # HR Attrition Prediction
 
+[![CI](https://github.com/Sarikapatel02/hr-attrition-prediction/actions/workflows/ci.yml/badge.svg)](https://github.com/Sarikapatel02/hr-attrition-prediction/actions/workflows/ci.yml)
+
 End-to-end machine-learning project for predicting employee attrition risk and identifying the factors associated with employee turnover.
 
 ## Live Demo
@@ -110,6 +112,15 @@ The application is deployed at [hr11attrition11prediction.streamlit.app](https:/
 4. Deploy from the `main` branch.
 
 The app bootstraps a fast deterministic Logistic Regression model, so deployment does not depend on ignored model binaries or private HR data.
+
+## Maintenance
+
+- Every push and pull request runs syntax checks and the test suite through [GitHub Actions](.github/workflows/ci.yml).
+- The `main` branch is the deployment source for Streamlit Community Cloud.
+- Run `py -3 -m pytest -q` locally before opening a pull request.
+- Keep raw HR data, trained model binaries, and generated reports out of Git unless their licensing and privacy requirements are approved.
+
+For contribution conventions, see [CONTRIBUTING.md](CONTRIBUTING.md). For data and vulnerability reporting, see [SECURITY.md](SECURITY.md).
 
 ## Responsible Use
 
