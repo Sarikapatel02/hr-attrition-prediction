@@ -1,21 +1,24 @@
 """Streamlit demo for the HR attrition prediction pipeline."""
 
-from pathlib import Path
 import streamlit as st
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
 
 from src.data_loader import make_demo_data
-from src.predict import predict
-from src.train import train_models
-
-MODEL_PATH = Path("models/best_model.joblib")
+from src.preprocessing import build_preprocessor
 
 
 @st.cache_resource
 def load_model():
-    if not MODEL_PATH.exists():
-        train_models(make_demo_data())
-    import joblib
-    return joblib.load(MODEL_PATH)
+    data = make_demo_data(rows=400)
+    features = data.drop(columns="Attrition")
+    target = data["Attrition"].map({"Yes": 1, "No": 0})
+    preprocessor, _, _ = build_preprocessor(data)
+    model = Pipeline([("preprocessor", preprocessor),
+                      ("classifier", LogisticRegression(max_iter=1000, class_weight="balanced", random_state=42))])
+    model.fit(features, target)
+    return model
 
 
 st.set_page_config(page_title="HR Attrition Risk", page_icon="📊", layout="centered")
@@ -35,7 +38,7 @@ if submitted:
     model = load_model()
     record = {"Age": age, "JobRole": role, "MonthlyIncome": income, "OverTime": overtime,
               "JobSatisfaction": satisfaction, "YearsAtCompany": years}
-    probability = float(model.predict_proba(__import__("pandas").DataFrame([record]))[0, 1])
+    probability = float(model.predict_proba(pd.DataFrame([record]))[0, 1])
     st.metric("Estimated attrition probability", f"{probability:.1%}")
     if probability >= 0.5:
         st.warning("Higher predicted risk. Review context with appropriate HR safeguards.")

@@ -42,7 +42,7 @@ The training command compares Logistic Regression, Random Forest, and XGBoost wh
 
 ## Deployment
 
-The included `app.py` runs on Streamlit Community Cloud. Push this repository to GitHub, select `app.py` as the main file, and use `requirements.txt` for dependencies. The app bootstraps a deterministic demo model when no saved model artifact is present.
+The included `app.py` runs on Streamlit Community Cloud. Push this repository to GitHub, select `app.py` as the main file, and use `requirements.txt` for dependencies. The app bootstraps a fast deterministic Logistic Regression demo model on startup, so deployment does not depend on ignored model binaries or private HR data.
 
 ## Evaluation and interpretation
 
